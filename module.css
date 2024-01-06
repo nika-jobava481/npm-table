@@ -2,5 +2,5 @@ table.border {
   border-collapse: collapse;
 }
 table.border th, table.border td {
-  border: 1px solid red;
+  border: 1px solid black;
 }/*# sourceMappingURL=module.css.map */

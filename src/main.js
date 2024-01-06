@@ -7,13 +7,11 @@ function getTableFor({
     classMap = {},
     border = true
 }) {
-    // Assuming you want to create a simple table and append it to the specified container
     const container = document.getElementById(containerID);
 
     if (container) {
         const table = document.createElement('table');
 
-        // Apply the "border" class based on the 'border' parameter
         if (border) {
             table.classList.add('border');
         }
@@ -21,7 +19,6 @@ function getTableFor({
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
 
-        // Create header cells
         for (const header of headers) {
             const th = document.createElement('th');
             th.textContent = header;
@@ -30,9 +27,7 @@ function getTableFor({
 
         thead.appendChild(headerRow);
         table.appendChild(thead);
-        container.appendChild(table);
 
-        // Assuming you also want to populate the table with data
         const tbody = document.createElement('tbody');
         for (const row of data) {
             const tr = document.createElement('tr');
@@ -43,8 +38,8 @@ function getTableFor({
             }
             tbody.appendChild(tr);
         }
-
-        table.appendChild(tbody);
+        table.appendChild(tbody)
+        container.appendChild(table);
     } else {
         console.error(`Container with ID '${containerID}' not found.`);
     }
