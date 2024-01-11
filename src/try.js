@@ -10,36 +10,45 @@ function getTableFor({
     const container = document.getElementById(containerID);
 
     if (container) {
-        // const table = document.createElement('table');
+        const table = document.createElement('table');
 
-        // if (border) {
-        //     table.classList.add('border');
-        // }
+        if (border) {
+            table.classList.add('border');
+        }
 
-        // const thead = document.createElement('thead');
-        // const headerRow = document.createElement('tr');
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
 
-        // for (const header of headers) {
-        //     const th = document.createElement('th');
-        //     th.textContent = header;
-        //     headerRow.appendChild(th);
-        // }
+        for (const header of headers) {
+            if (header.condition) {
+                const th = document.createElement('th');
+                th.textContent = header.name;
+                headerRow.appendChild(th);
+            }
+        }
+        const conditionsList = []
+        for (let i = 0; i < data.length; i++) {
+            conditionsList.push(data[i].condition && headers[i].condition)
+        }
 
-        // thead.appendChild(headerRow);
-        // table.appendChild(thead);
 
-        // const tbody = document.createElement('tbody');
-        // for (const row of data) {
-        //     const tr = document.createElement('tr');
-        //     for (const cell of row) {
-        //         const td = document.createElement('td');
-        //         td.textContent = cell;
-        //         tr.appendChild(td);
-        //     }
-        //     tbody.appendChild(tr);
-        // }
-        // table.appendChild(tbody)
-        // container.appendChild(table);
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        for (const row of data) {
+            const tr = document.createElement('tr');
+            for (let i=0;i<row.data.length;i++) {
+                if (conditionsList[i]) {
+                    const td = document.createElement('td');
+                    td.textContent = row.data[i];
+                    tr.appendChild(td);
+                }
+            }
+            tbody.appendChild(tr);
+        }
+        table.appendChild(tbody)
+        container.appendChild(table);
     } else {
         console.error(`Container with ID '${containerID}' not found.`);
     }
@@ -79,11 +88,7 @@ var tabledata = [
 
 getTableFor({
     headers: tableheaders,
-    data: [
-        ['Row 1, Cell 1', 'Row 1, Cell 2', 'Row 1, Cell 3'],
-        ['Row 2, Cell 1', 'Row 2, Cell 2', 'Row 2, Cell 3'],
-        ['Row 3, Cell 1', 'Row 3, Cell 2', 'Row 3, Cell 3']
-    ],
+    data: tabledata,
     containerID: 'mainbody',
     border: true
 });
